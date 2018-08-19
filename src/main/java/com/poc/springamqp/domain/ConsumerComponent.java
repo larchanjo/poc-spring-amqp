@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ConsumerComponent {
 
-  @RabbitListener(id = "test-queue-consumer", queues = { "${application.amqp.queue.test}"})
+  @RabbitListener(queues = {"${application.amqp.queue.test}"})
   public void testQueueConsumer(@NonNull Message message, @Headers Map<String, String> headers) {
     log.info("Consuming {} with headers {}", message, headers);
   }

@@ -19,3 +19,4 @@ application:
   amqp:
     queue:
       test: test-queue
+      test-dlq: test-dlq-queue
