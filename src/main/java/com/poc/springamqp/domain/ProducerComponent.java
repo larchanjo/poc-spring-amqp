@@ -1,6 +1,7 @@
 package com.poc.springamqp.domain;
 
 import com.poc.springamqp.domain.Message;
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -27,7 +28,10 @@ public class ProducerComponent {
       Message message = new Message();
 
       log.info("Adding {} to {}", message, testQueue);
-      rabbitTemplate.convertAndSend(testQueue, message);
+      rabbitTemplate.convertAndSend(testQueue, message, m -> {
+        m.getMessageProperties().getHeaders().put("request_id", UUID.randomUUID().toString());
+        return m;
+      });
     }
   }
 

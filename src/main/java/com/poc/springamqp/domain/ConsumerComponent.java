@@ -1,8 +1,10 @@
 package com.poc.springamqp.domain;
 
+import java.util.Map;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component;
 public class ConsumerComponent {
 
   @RabbitListener(id = "test-queue-consumer", queues = { "${application.amqp.queue.test}"})
-  public void testQueueConsumer(@NonNull Message message) {
-    log.info("Consuming {}", message);
+  public void testQueueConsumer(@NonNull Message message, @Headers Map<String, String> headers) {
+    log.info("Consuming {} with headers {}", message, headers);
   }
 
 }
